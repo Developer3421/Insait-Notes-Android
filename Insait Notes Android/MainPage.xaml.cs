@@ -2,14 +2,24 @@ using Insait_Notes_Android.Services;
 
 namespace Insait_Notes_Android;
 
+/// <summary>
+/// Main editor screen: shows the currently selected tab and its note text.
+/// Text edits are debounced before being persisted so typing stays smooth.
+/// </summary>
 public partial class MainPage : ContentPage
 {
     private const string AppVersion = "1.0.1";
+
+    // Key under which the selected UI language is stored in Preferences.
     private const string LangPrefKey = "insait_lang";
 
     private readonly NotesService _service = NotesService.Instance;
+
+    // Debounce timer: saves the note shortly after the user stops typing.
     private readonly IDispatcherTimer _saveTimer;
     private string _lang = "EN";
+
+    // Guards against reacting to programmatic text changes in SyncEditor.
     private bool _loading;
     private bool _subscribed;
 
@@ -17,6 +27,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
+        // Restore the saved language, falling back to English when unknown.
         _lang = Preferences.Get(LangPrefKey, "EN");
         if (Array.IndexOf(Localization.Codes, _lang) < 0)
             _lang = "EN";
@@ -37,6 +48,8 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
         await _service.InitAsync();
+
+        // Subscribe to service changes only once for the lifetime of the page.
         if (!_subscribed)
         {
             _service.Changed += OnServiceChanged;
@@ -56,6 +69,7 @@ public partial class MainPage : ContentPage
 
     private void OnServiceChanged(object? sender, EventArgs e) => SyncEditor();
 
+    /// <summary>Pushes the current tab's name/content into the editor controls.</summary>
     private void SyncEditor()
     {
         var tab = _service.Current;
@@ -67,6 +81,7 @@ public partial class MainPage : ContentPage
 
     private void OnEditorTextChanged(object? sender, TextChangedEventArgs e)
     {
+        // Ignore changes triggered by SyncEditor, not by the user.
         if (_loading || _service.Current is null)
             return;
         _service.Current.Content = e.NewTextValue ?? "";
@@ -74,6 +89,7 @@ public partial class MainPage : ContentPage
         _saveTimer.Start();
     }
 
+    /// <summary>Immediately persists the current tab, bypassing the debounce timer.</summary>
     private async Task FlushAsync()
     {
         _saveTimer.Stop();
@@ -87,6 +103,7 @@ public partial class MainPage : ContentPage
         await Shell.Current.GoToAsync("tabcenter");
     }
 
+    /// <summary>Cycles to the next UI language and retranslates the welcome text if untouched.</summary>
     private void OnLangTapped(object? sender, TappedEventArgs e)
     {
         var idx = Array.IndexOf(Localization.Codes, _lang);
@@ -108,6 +125,7 @@ public partial class MainPage : ContentPage
         StatusLabel.Text = $"Insait Notes  v{AppVersion}";
     }
 
+    /// <summary>Hardware back closes an open overlay first, otherwise default behavior.</summary>
     protected override bool OnBackButtonPressed()
     {
         if (AboutOverlay.IsVisible)

@@ -3,6 +3,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Insait_Notes_Android;
 
+/// <summary>
+/// MAUI app builder. Registers the app, the CommunityToolkit (used for the
+/// Snackbar with undo) and the bundled fonts.
+/// </summary>
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()

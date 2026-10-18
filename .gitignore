@@ -1,5 +1,24 @@
+# Build output
 bin/
 obj/
 /packages/
+
+# IDE / editor
+.vs/
+.idea/
 riderModule.iml
+*.user
+*.DotSettings.user
 /_ReSharper.Caches/
+
+# Signing material and secrets — must never be committed
+*.keystore
+*.jks
+*.p12
+keystore.properties
+
+# Package / release artifacts
+publish/
+*.apk
+*.aab
+*.msix

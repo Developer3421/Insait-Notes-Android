@@ -2,6 +2,10 @@
 
 namespace Insait_Notes_Android;
 
+/// <summary>
+/// Application entry point. Creates the single shell window that hosts the
+/// editor page (MainPage) and the tab center page (TabCenterPage).
+/// </summary>
 public partial class App : Application
 {
     public App()

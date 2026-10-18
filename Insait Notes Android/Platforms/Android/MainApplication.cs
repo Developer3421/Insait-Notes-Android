@@ -3,6 +3,9 @@ using Android.Runtime;
 
 namespace Insait_Notes_Android;
 
+/// <summary>
+/// Android application object. Bootstraps the MAUI app created by MauiProgram.
+/// </summary>
 [Application]
 public class MainApplication : MauiApplication
 {

@@ -18,14 +18,15 @@
                <MauiXaml Update="MyPage.xaml" Inflator="Runtime" /> (force runtime inflation) -->
         <MauiXamlInflator>SourceGen</MauiXamlInflator>
 
-        <!-- Display name -->
-        <ApplicationTitle>Insait Notes Android</ApplicationTitle>
+        <!-- Display name shown under the launcher icon -->
+        <ApplicationTitle>Insait Notes</ApplicationTitle>
 
-        <!-- App Identifier -->
-        <ApplicationId>com.companyname.insaitnotesandroid</ApplicationId>
+        <!-- App Identifier (reverse-DNS, must be unique and permanent for F-Droid) -->
+        <ApplicationId>com.olehkurylo.insaitnotes</ApplicationId>
 
-        <!-- Versions -->
-        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <!-- Versions. ApplicationVersion is the Android versionCode (must increase with
+             every release), ApplicationDisplayVersion is the human-readable versionName. -->
+        <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
@@ -40,7 +41,6 @@
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
         <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />

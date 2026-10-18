@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true"></application>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
+	<!--
+		Insait Notes works fully offline: notes are stored only in the app's
+		private directory (see NotesService). No network or external-storage
+		permissions are required, which keeps the app F-Droid and privacy friendly.
+		android:allowBackup is disabled so private notes are not exposed through
+		ADB/cloud backups.
+	-->
+	<application
+		android:allowBackup="false"
+		android:icon="@mipmap/appicon"
+		android:roundIcon="@mipmap/appicon_round"
+		android:supportsRtl="true"></application>
 </manifest>
