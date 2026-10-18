@@ -1,0 +1,1 @@
+Fast, private, offline notepad with tabs, pinning and 5 languages.

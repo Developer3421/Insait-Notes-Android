@@ -1,0 +1,5 @@
+First release for F-Droid.
+- Tab-based note editor with autosave.
+- Tab Center with search, pinning and delete-with-undo.
+- Five interface languages (EN, RU, DE, UA, TR).
+- Fully offline, no permissions, no tracking.
